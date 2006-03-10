@@ -98,6 +98,16 @@ rm -rf $RPM_BUILD_ROOT
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
 
+install -d $RPM_BUILD_ROOT%{_mandir}/man3
+install doc/man/man3/* $RPM_BUILD_ROOT%{_mandir}/man3
+
+rm -rf examples/{ftpconf,reread,simple,*.o}
+install -d $RPM_BUILD_ROOT%{_examplesdir}/%{name}
+install examples/* $RPM_BUILD_ROOT%{_examplesdir}/%{name}
+
+install -d $RPM_BUILD_ROOT%{_defaultdocdir}/%{name}
+cp -a doc/{html,tutorial-html} $RPM_BUILD_ROOT%{_defaultdocdir}/%{name}
+
 %find_lang %{_name}
 
 %clean
@@ -116,6 +126,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/*.la
 %{_includedir}/*.h
 %{_pkgconfigdir}/*
+%{_mandir}/man3/*
+%{_examplesdir}/%{name}
+%{_defaultdocdir}/%{name}
 
 %if %{with static_libs}
 %files static
