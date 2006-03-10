@@ -1,0 +1,124 @@
+#
+# Conditional build:
+%bcond_without	static_libs	# don't build static library
+
+%define		_name confuse
+
+Summary:	libConfuse - a library for parsing configuration files
+Summary(pl):	libConfuse - biblioteka do parsowania plików konfiguracyjnych
+Name:		libconfuse
+Version:	2.5
+Release:	0.1
+License:	LGPL
+Group:		Development/Libraries
+Source0:	http://download.savannah.gnu.org/releases/confuse/%{_name}-%{version}.tar.gz
+# Source0-md5:	4bc9b73d77ebd571ac834619ce0b3582
+Patch0:		%{name}-tests.patch
+URL:		http://www.nongnu.org/confuse/
+BuildRequires:	autoconf
+BuildRequires:	automake > 1.6.3
+BuildRequires:	gettext-devel >= 0.14.1
+BuildRequires:	libtool > 1.4.2
+BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
+
+%description
+libConfuse is a configuration file parser library, licensed under the
+terms of the LGPL, and written in C. It supports sections and (lists
+of) values (strings, integers, floats, booleans or other sections), as
+well as some other features (such as single/double-quoted strings,
+environment variable expansion, functions and nested include
+statements).
+
+It makes it very easy to add configuration file capability to a
+program using a simple API. The goal of libConfuse is not to be *the*
+configuration file parser library with a gazillion of features.
+Instead, it aims to be easy to use and quick to integrate with your
+code.
+
+%description -l pl
+Biblioteka libConfuse jest parserem plików konfiguracyjnych. Napisana
+zosta³a w jêzyku C na licencji LGPL. Plik konfiguracyjny mo¿e zawieraæ
+sekcje i listê warto¶ci nastêpuj±cych typów: napisy, liczby ca³kowite,
+zmiennoprzecinkowe, warto¶ci logiczne. Napisy mog± byæ z pojedynczym
+lub podwójnym cudzys³owem. Zmienne ¶rodowiskowe s± rozwijane. Mo¿na
+u¿ywaæ funkcji i zagnie¿d¿aæ wyra¿enia.
+
+Biblioteka umo¿liwia w prosty sposób dodanie do programu obs³ugê
+plików konfiguracyjnych u¿ywaj±c prostego API. Celem libConfuse nie
+jest stworzenie parsera plików z milionem funkcji, ale prostej
+biblioteki umo¿liwiaj±cej szybk± integracjê z kodem programu.
+
+%package devel
+Summary:	Header files for libConfuse library
+Summary(pl):	Pliki nag³ówkowe biblioteki libConfuse
+Group:		Development/Libraries
+Requires:	%{name} = %{version}-%{release}
+
+%description devel
+This is the package containing the header files for libConfuse
+library.
+
+%description devel -l pl
+Ten pakiet zawiera pliki nag³ówkowe biblioteki libConfuse.
+
+%package static
+Summary:	Static libConfuse library
+Summary(pl):	Statyczna biblioteka libConfuse
+Group:		Development/Libraries
+Requires:	%{name}-devel = %{version}-%{release}
+
+%description static
+Static libConfuse library.
+
+%description static -l pl
+Statyczna biblioteka libConfuse.
+
+%prep
+%setup -q -n %{_name}-%{version}
+%patch0 -p1
+
+%build
+%{__libtoolize}
+%{__aclocal} -I m4
+%{__autoconf}
+%{__autoheader}
+%{__automake}
+cp -f %{_datadir}/automake/config.sub .
+%configure \
+	--%{?with_static_libs:en}%{!?with_static_libs:dis}able-static \
+	--enable-shared
+
+%{__make} \
+	CFLAGS="%{rpmcflags}" \
+	LDFLAGS="%{rpmldflags}"
+
+%install
+rm -rf $RPM_BUILD_ROOT
+
+%{__make} install \
+	DESTDIR=$RPM_BUILD_ROOT
+
+%find_lang %{_name}
+
+%clean
+rm -rf $RPM_BUILD_ROOT
+
+%post	-p /sbin/ldconfig
+%postun	-p /sbin/ldconfig
+
+%files -f %{_name}.lang
+%defattr(644,root,root,755)
+%doc AUTHORS NEWS README
+%attr(755,root,root) %{_libdir}/*.so*
+
+%files devel
+%defattr(644,root,root,755)
+%{_libdir}/*.la
+%{_includedir}/*.h
+%{_pkgconfigdir}/*
+
+%if %{with static_libs}
+%files static
+%defattr(644,root,root,755)
+%{_libdir}/lib*.a
+%endif
