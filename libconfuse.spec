@@ -8,12 +8,12 @@ Summary:	libConfuse - a library for parsing configuration files
 Summary(pl):	libConfuse - biblioteka do parsowania plików konfiguracyjnych
 Name:		libconfuse
 Version:	2.5
-Release:	0.1
+Release:	0.2
 License:	LGPL
 Group:		Development/Libraries
 Source0:	http://download.savannah.gnu.org/releases/confuse/%{_name}-%{version}.tar.gz
 # Source0-md5:	4bc9b73d77ebd571ac834619ce0b3582
-Patch0:		%{name}-tests.patch
+Patch0:		%{name}-no_tests.patch
 URL:		http://www.nongnu.org/confuse/
 BuildRequires:	autoconf
 BuildRequires:	automake > 1.6.3
@@ -83,30 +83,23 @@ Statyczna biblioteka libConfuse.
 %{__autoconf}
 %{__autoheader}
 %{__automake}
-cp -f %{_datadir}/automake/config.sub .
 %configure \
 	--%{?with_static_libs:en}%{!?with_static_libs:dis}able-static \
 	--enable-shared
 
-%{__make} \
-	CFLAGS="%{rpmcflags}" \
-	LDFLAGS="%{rpmldflags}"
+%{__make}
 
 %install
 rm -rf $RPM_BUILD_ROOT
+install -d $RPM_BUILD_ROOT{%{_examplesdir}/%{name}-%{version},%{_mandir}/man3}
 
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
 
-install -d $RPM_BUILD_ROOT%{_mandir}/man3
 install doc/man/man3/* $RPM_BUILD_ROOT%{_mandir}/man3
 
 rm -rf examples/{ftpconf,reread,simple,*.o}
-install -d $RPM_BUILD_ROOT%{_examplesdir}/%{name}
-install examples/* $RPM_BUILD_ROOT%{_examplesdir}/%{name}
-
-install -d $RPM_BUILD_ROOT%{_defaultdocdir}/%{name}
-cp -a doc/{html,tutorial-html} $RPM_BUILD_ROOT%{_defaultdocdir}/%{name}
+install examples/* $RPM_BUILD_ROOT%{_examplesdir}/%{name}-%{version}
 
 %find_lang %{_name}
 
@@ -119,16 +112,16 @@ rm -rf $RPM_BUILD_ROOT
 %files -f %{_name}.lang
 %defattr(644,root,root,755)
 %doc AUTHORS NEWS README
-%attr(755,root,root) %{_libdir}/*.so*
+%attr(755,root,root) %{_libdir}/lib*.so.*.*.*
 
 %files devel
 %defattr(644,root,root,755)
-%{_libdir}/*.la
+%doc doc/html doc/tutorial-html
+%{_libdir}/lib*.la
 %{_includedir}/*.h
 %{_pkgconfigdir}/*
 %{_mandir}/man3/*
-%{_examplesdir}/%{name}
-%{_defaultdocdir}/%{name}
+%{_examplesdir}/%{name}-%{version}
 
 %if %{with static_libs}
 %files static
