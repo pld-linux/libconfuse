@@ -5,7 +5,7 @@
 %define		_name confuse
 
 Summary:	libConfuse - a library for parsing configuration files
-Summary(pl):	libConfuse - biblioteka do parsowania plików konfiguracyjnych
+Summary(pl.UTF-8):   libConfuse - biblioteka do parsowania plikÃ³w konfiguracyjnych
 Name:		libconfuse
 Version:	2.5
 Release:	0.2
@@ -35,22 +35,22 @@ configuration file parser library with a gazillion of features.
 Instead, it aims to be easy to use and quick to integrate with your
 code.
 
-%description -l pl
-Biblioteka libConfuse jest parserem plików konfiguracyjnych. Napisana
-zosta³a w jêzyku C na licencji LGPL. Plik konfiguracyjny mo¿e zawieraæ
-sekcje i listê warto¶ci nastêpuj±cych typów: napisy, liczby ca³kowite,
-zmiennoprzecinkowe, warto¶ci logiczne. Napisy mog± byæ z pojedynczym
-lub podwójnym cudzys³owem. Zmienne ¶rodowiskowe s± rozwijane. Mo¿na
-u¿ywaæ funkcji i zagnie¿d¿aæ wyra¿enia.
+%description -l pl.UTF-8
+Biblioteka libConfuse jest parserem plikÃ³w konfiguracyjnych. Napisana
+zostaÅ‚a w jÄ™zyku C na licencji LGPL. Plik konfiguracyjny moÅ¼e zawieraÄ‡
+sekcje i listÄ™ wartoÅ›ci nastÄ™pujÄ…cych typÃ³w: napisy, liczby caÅ‚kowite,
+zmiennoprzecinkowe, wartoÅ›ci logiczne. Napisy mogÄ… byÄ‡ z pojedynczym
+lub podwÃ³jnym cudzysÅ‚owem. Zmienne Å›rodowiskowe sÄ… rozwijane. MoÅ¼na
+uÅ¼ywaÄ‡ funkcji i zagnieÅ¼dÅ¼aÄ‡ wyraÅ¼enia.
 
-Biblioteka umo¿liwia w prosty sposób dodanie do programu obs³ugê
-plików konfiguracyjnych u¿ywaj±c prostego API. Celem libConfuse nie
-jest stworzenie parsera plików z milionem funkcji, ale prostej
-biblioteki umo¿liwiaj±cej szybk± integracjê z kodem programu.
+Biblioteka umoÅ¼liwia w prosty sposÃ³b dodanie do programu obsÅ‚ugÄ™
+plikÃ³w konfiguracyjnych uÅ¼ywajÄ…c prostego API. Celem libConfuse nie
+jest stworzenie parsera plikÃ³w z milionem funkcji, ale prostej
+biblioteki umoÅ¼liwiajÄ…cej szybkÄ… integracjÄ™ z kodem programu.
 
 %package devel
 Summary:	Header files for libConfuse library
-Summary(pl):	Pliki nag³ówkowe biblioteki libConfuse
+Summary(pl.UTF-8):   Pliki nagÅ‚Ã³wkowe biblioteki libConfuse
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
 
@@ -58,19 +58,19 @@ Requires:	%{name} = %{version}-%{release}
 This is the package containing the header files for libConfuse
 library.
 
-%description devel -l pl
-Ten pakiet zawiera pliki nag³ówkowe biblioteki libConfuse.
+%description devel -l pl.UTF-8
+Ten pakiet zawiera pliki nagÅ‚Ã³wkowe biblioteki libConfuse.
 
 %package static
 Summary:	Static libConfuse library
-Summary(pl):	Statyczna biblioteka libConfuse
+Summary(pl.UTF-8):   Statyczna biblioteka libConfuse
 Group:		Development/Libraries
 Requires:	%{name}-devel = %{version}-%{release}
 
 %description static
 Static libConfuse library.
 
-%description static -l pl
+%description static -l pl.UTF-8
 Statyczna biblioteka libConfuse.
 
 %prep
