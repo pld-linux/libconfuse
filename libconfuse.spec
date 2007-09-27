@@ -8,7 +8,7 @@ Summary:	libConfuse - a library for parsing configuration files
 Summary(pl.UTF-8):	libConfuse - biblioteka do parsowania plików konfiguracyjnych
 Name:		libconfuse
 Version:	2.5
-Release:	0.2
+Release:	1
 License:	LGPL
 Group:		Development/Libraries
 Source0:	http://download.savannah.gnu.org/releases/confuse/%{_name}-%{version}.tar.gz
@@ -91,7 +91,7 @@ Statyczna biblioteka libConfuse.
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT{%{_examplesdir}/%{name}-%{version},%{_mandir}/man3}
+install -d $RPM_BUILD_ROOT{%{_examplesdir}/%{name}-%{version},%{_mandir}/man3,%{_pkgconfigdir}}
 
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
@@ -99,6 +99,7 @@ install -d $RPM_BUILD_ROOT{%{_examplesdir}/%{name}-%{version},%{_mandir}/man3}
 install doc/man/man3/* $RPM_BUILD_ROOT%{_mandir}/man3
 
 rm -rf examples/{ftpconf,reread,simple,*.o}
+install %{name}.pc $RPM_BUILD_ROOT%{_pkgconfigdir}
 install examples/* $RPM_BUILD_ROOT%{_examplesdir}/%{name}-%{version}
 
 %find_lang %{_name}
