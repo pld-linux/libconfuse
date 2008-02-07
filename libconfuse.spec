@@ -3,9 +3,8 @@
 %bcond_without	static_libs	# don't build static library
 #
 %define		_name confuse
-
 Summary:	libConfuse - a library for parsing configuration files
-Summary(pl.UTF-8):	libConfuse - biblioteka do parsowania plików konfiguracyjnych
+Summary(pl.UTF-8):	libConfuse - biblioteka do analizy plików konfiguracyjnych
 Name:		libconfuse
 Version:	2.5
 Release:	1
@@ -36,16 +35,16 @@ Instead, it aims to be easy to use and quick to integrate with your
 code.
 
 %description -l pl.UTF-8
-Biblioteka libConfuse jest parserem plików konfiguracyjnych. Napisana
-została w języku C na licencji LGPL. Plik konfiguracyjny może zawierać
-sekcje i listę wartości następujących typów: napisy, liczby całkowite,
-zmiennoprzecinkowe, wartości logiczne. Napisy mogą być z pojedynczym
-lub podwójnym cudzysłowem. Zmienne środowiskowe są rozwijane. Można
-używać funkcji i zagnieżdżać wyrażenia.
+Biblioteka libConfuse jest analizatorem plików konfiguracyjnych.
+Napisana została w języku C na licencji LGPL. Plik konfiguracyjny może
+zawierać sekcje i listę wartości następujących typów: napisy, liczby
+całkowite, zmiennoprzecinkowe, wartości logiczne. Napisy mogą być z
+pojedynczym lub podwójnym cudzysłowem. Zmienne środowiskowe są
+rozwijane. Można używać funkcji i zagnieżdżać wyrażenia.
 
 Biblioteka umożliwia w prosty sposób dodanie do programu obsługę
 plików konfiguracyjnych używając prostego API. Celem libConfuse nie
-jest stworzenie parsera plików z milionem funkcji, ale prostej
+jest stworzenie analizatora plików z milionem funkcji, ale prostej
 biblioteki umożliwiającej szybką integrację z kodem programu.
 
 %package devel
