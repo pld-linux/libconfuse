@@ -7,7 +7,7 @@ Summary:	libConfuse - a library for parsing configuration files
 Summary(pl.UTF-8):	libConfuse - biblioteka do analizy plików konfiguracyjnych
 Name:		libconfuse
 Version:	2.6
-Release:	1
+Release:	2
 License:	MIT
 Group:		Libraries
 Source0:	http://bzero.se/confuse/%{_name}-%{version}.tar.gz
@@ -79,6 +79,7 @@ Statyczna biblioteka libConfuse.
 %{__autoconf}
 %{__autoheader}
 %{__automake}
+CPPFLAGS="-DYY_NO_INPUT"
 %configure \
 	%{!?with_static_libs:--disable-static} \
 	--enable-shared
