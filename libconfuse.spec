@@ -6,12 +6,12 @@
 Summary:	libConfuse - a library for parsing configuration files
 Summary(pl.UTF-8):	libConfuse - biblioteka do analizy plików konfiguracyjnych
 Name:		libconfuse
-Version:	2.6
-Release:	2
+Version:	2.7
+Release:	1
 License:	MIT
 Group:		Libraries
-Source0:	http://bzero.se/confuse/%{_name}-%{version}.tar.gz
-# Source0-md5:	0e883d66f0f58fc33585b430c652aa30
+Source0:	http://savannah.nongnu.org/download/%{_name}/%{_name}-%{version}.tar.gz
+# Source0-md5:	45932fdeeccbb9ef4228f1c1a25e9c8f
 Patch0:		%{name}-no_tests.patch
 URL:		http://www.nongnu.org/confuse/
 BuildRequires:	autoconf >= 2.50
@@ -71,7 +71,7 @@ Statyczna biblioteka libConfuse.
 
 %prep
 %setup -q -n %{_name}-%{version}
-%patch0 -p1
+# %patch0 -p1
 
 %build
 %{__libtoolize}
