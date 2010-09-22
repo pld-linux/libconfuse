@@ -2,7 +2,7 @@
 # Conditional build:
 %bcond_without	static_libs	# don't build static library
 #
-%define		_name confuse
+%define		pname confuse
 Summary:	libConfuse - a library for parsing configuration files
 Summary(pl.UTF-8):	libConfuse - biblioteka do analizy plików konfiguracyjnych
 Name:		libconfuse
@@ -10,9 +10,8 @@ Version:	2.7
 Release:	1
 License:	MIT
 Group:		Libraries
-Source0:	http://savannah.nongnu.org/download/%{_name}/%{_name}-%{version}.tar.gz
+Source0:	http://savannah.nongnu.org/download/confuse/%{pname}-%{version}.tar.gz
 # Source0-md5:	45932fdeeccbb9ef4228f1c1a25e9c8f
-Patch0:		%{name}-no_tests.patch
 URL:		http://www.nongnu.org/confuse/
 BuildRequires:	autoconf >= 2.50
 BuildRequires:	automake > 1.6.3
@@ -51,8 +50,7 @@ Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
 
 %description devel
-This is the package containing the header files for libConfuse
-library.
+This package contains the header files for libConfuse library.
 
 %description devel -l pl.UTF-8
 Ten pakiet zawiera pliki nagłówkowe biblioteki libConfuse.
@@ -70,16 +68,16 @@ Static libConfuse library.
 Statyczna biblioteka libConfuse.
 
 %prep
-%setup -q -n %{_name}-%{version}
-# %patch0 -p1
+%setup -q -n %{pname}-%{version}
 
 %build
+%{__gettextize}
 %{__libtoolize}
 %{__aclocal} -I m4
 %{__autoconf}
 %{__autoheader}
 %{__automake}
-CPPFLAGS="-DYY_NO_INPUT"
+CPPFLAGS="%{rpmcppflags} -DYY_NO_INPUT"
 %configure \
 	%{!?with_static_libs:--disable-static} \
 	--enable-shared
@@ -98,7 +96,7 @@ install doc/man/man3/* $RPM_BUILD_ROOT%{_mandir}/man3
 rm -rf examples/{ftpconf,reread,simple,*.o}
 install examples/* $RPM_BUILD_ROOT%{_examplesdir}/%{name}-%{version}
 
-%find_lang %{_name}
+%find_lang %{pname}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -106,7 +104,7 @@ rm -rf $RPM_BUILD_ROOT
 %post	-p /sbin/ldconfig
 %postun	-p /sbin/ldconfig
 
-%files -f %{_name}.lang
+%files -f %{pname}.lang
 %defattr(644,root,root,755)
 %doc AUTHORS NEWS README
 %attr(755,root,root) %{_libdir}/libconfuse.so.*.*.*
