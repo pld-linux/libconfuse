@@ -15,7 +15,7 @@ Source0:	http://savannah.nongnu.org/download/confuse/%{pname}-%{version}.tar.gz
 URL:		http://www.nongnu.org/confuse/
 BuildRequires:	autoconf >= 2.50
 BuildRequires:	automake > 1.6.3
-BuildRequires:	gettext-devel >= 0.16.1
+BuildRequires:	gettext-tools >= 0.16.1
 BuildRequires:	libtool > 1.4.2
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
