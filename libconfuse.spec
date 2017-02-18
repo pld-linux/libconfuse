@@ -6,17 +6,18 @@
 Summary:	libConfuse - a library for parsing configuration files
 Summary(pl.UTF-8):	libConfuse - biblioteka do analizy plików konfiguracyjnych
 Name:		libconfuse
-Version:	2.7
-Release:	2
-License:	MIT
+Version:	2.8
+Release:	1
+License:	ISC
 Group:		Libraries
-Source0:	http://savannah.nongnu.org/download/confuse/%{pname}-%{version}.tar.gz
-# Source0-md5:	45932fdeeccbb9ef4228f1c1a25e9c8f
-URL:		http://www.nongnu.org/confuse/
+#Source0Download: https://github.com/martinh/libconfuse/releases
+Source0:	https://github.com/martinh/libconfuse/releases/download/v%{version}/%{pname}-%{version}.tar.xz
+# Source0-md5:	cb552c5737a72ef164733f0118971eb0
+URL:		https://github.com/martinh/libconfuse
 BuildRequires:	autoconf >= 2.50
-BuildRequires:	automake > 1.6.3
+BuildRequires:	automake >= 1:1.11
 BuildRequires:	gettext-tools >= 0.16.1
-BuildRequires:	libtool > 1.4.2
+BuildRequires:	libtool >= 2:2
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -77,10 +78,8 @@ Statyczna biblioteka libConfuse.
 %{__autoconf}
 %{__autoheader}
 %{__automake}
-CPPFLAGS="%{rpmcppflags} -DYY_NO_INPUT"
 %configure \
-	%{!?with_static_libs:--disable-static} \
-	--enable-shared
+	%{!?with_static_libs:--disable-static}
 
 %{__make}
 
@@ -90,6 +89,9 @@ install -d $RPM_BUILD_ROOT{%{_examplesdir}/%{name}-%{version},%{_mandir}/man3,%{
 
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
+
+# obsoleted by pkg-config
+%{__rm} $RPM_BUILD_ROOT%{_libdir}/libconfuse.la
 
 install doc/man/man3/* $RPM_BUILD_ROOT%{_mandir}/man3
 
@@ -106,7 +108,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -f %{pname}.lang
 %defattr(644,root,root,755)
-%doc AUTHORS NEWS README
+%doc AUTHORS ChangeLog.md LICENSE README.md
 %attr(755,root,root) %{_libdir}/libconfuse.so.*.*.*
 %attr(755,root,root) %ghost %{_libdir}/libconfuse.so.0
 
@@ -114,7 +116,6 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %doc doc/html doc/tutorial-html
 %attr(755,root,root) %{_libdir}/libconfuse.so
-%{_libdir}/libconfuse.la
 %{_includedir}/confuse.h
 %{_pkgconfigdir}/libconfuse.pc
 %{_mandir}/man3/cfg_*.3*
