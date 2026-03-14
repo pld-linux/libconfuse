@@ -6,14 +6,15 @@
 Summary:	libConfuse - a library for parsing configuration files
 Summary(pl.UTF-8):	libConfuse - biblioteka do analizy plików konfiguracyjnych
 Name:		libconfuse
-Version:	2.8
+Version:	3.3
 Release:	1
 License:	ISC
 Group:		Libraries
-#Source0Download: https://github.com/martinh/libconfuse/releases
-Source0:	https://github.com/martinh/libconfuse/releases/download/v%{version}/%{pname}-%{version}.tar.xz
-# Source0-md5:	cb552c5737a72ef164733f0118971eb0
-URL:		https://github.com/martinh/libconfuse
+#Source0Download: https://github.com/libconfuse/libconfuse/releases
+Source0:	https://github.com/libconfuse/libconfuse/releases/download/v%{version}/%{pname}-%{version}.tar.xz
+# Source0-md5:	a183cef2cecdd3783436ff8de500d274
+Patch0:		CVE-2022-40320.patch
+URL:		https://github.com/libconfuse/libconfuse
 BuildRequires:	autoconf >= 2.50
 BuildRequires:	automake >= 1:1.11
 BuildRequires:	gettext-tools >= 0.16.1
@@ -70,6 +71,7 @@ Statyczna biblioteka libConfuse.
 
 %prep
 %setup -q -n %{pname}-%{version}
+%patch -P0 -p1
 
 %build
 %{__gettextize}
@@ -90,12 +92,14 @@ install -d $RPM_BUILD_ROOT{%{_examplesdir}/%{name}-%{version},%{_mandir}/man3,%{
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
 
+# remove docs installed by make install (we handle them via %doc)
+%{__rm} -r $RPM_BUILD_ROOT%{_docdir}/confuse
 # obsoleted by pkg-config
 %{__rm} $RPM_BUILD_ROOT%{_libdir}/libconfuse.la
 
 install doc/man/man3/* $RPM_BUILD_ROOT%{_mandir}/man3
 
-rm -rf examples/{ftpconf,reread,simple,*.o}
+rm -rf examples/{ftpconf,reread,simple,cfgtest,cli,nested,deprecated,addsec,parsebuf,env,wincfgtest,*.o}
 install examples/* $RPM_BUILD_ROOT%{_examplesdir}/%{name}-%{version}
 
 %find_lang %{pname}
@@ -110,7 +114,7 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %doc AUTHORS ChangeLog.md LICENSE README.md
 %attr(755,root,root) %{_libdir}/libconfuse.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libconfuse.so.0
+%attr(755,root,root) %ghost %{_libdir}/libconfuse.so.2
 
 %files devel
 %defattr(644,root,root,755)
