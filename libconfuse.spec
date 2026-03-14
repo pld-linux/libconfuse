@@ -17,7 +17,7 @@ Patch0:		CVE-2022-40320.patch
 URL:		https://github.com/libconfuse/libconfuse
 BuildRequires:	autoconf >= 2.50
 BuildRequires:	automake >= 1:1.11
-BuildRequires:	gettext-tools >= 0.16.1
+BuildRequires:	gettext-tools >= 0.18.2
 BuildRequires:	libtool >= 2:2
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -113,13 +113,13 @@ rm -rf $RPM_BUILD_ROOT
 %files -f %{pname}.lang
 %defattr(644,root,root,755)
 %doc AUTHORS ChangeLog.md LICENSE README.md
-%attr(755,root,root) %{_libdir}/libconfuse.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libconfuse.so.2
+%{_libdir}/libconfuse.so.*.*.*
+%ghost %{_libdir}/libconfuse.so.2
 
 %files devel
 %defattr(644,root,root,755)
 %doc doc/html doc/tutorial-html
-%attr(755,root,root) %{_libdir}/libconfuse.so
+%{_libdir}/libconfuse.so
 %{_includedir}/confuse.h
 %{_pkgconfigdir}/libconfuse.pc
 %{_mandir}/man3/cfg_*.3*
