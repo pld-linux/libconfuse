@@ -7,7 +7,7 @@ Summary:	libConfuse - a library for parsing configuration files
 Summary(pl.UTF-8):	libConfuse - biblioteka do analizy plików konfiguracyjnych
 Name:		libconfuse
 Version:	3.3
-Release:	1
+Release:	2
 License:	ISC
 Group:		Libraries
 #Source0Download: https://github.com/libconfuse/libconfuse/releases
